@@ -11,7 +11,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Sign Up Page'),
+          title: Text('SIGN UP'),
         ),
       ),
     );

@@ -11,7 +11,7 @@ class _SignInPageState extends State<SignInPage> {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Sign In Page'),
+          title: Text('SIGN IN'),
         ),
       ),
     );

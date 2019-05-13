@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth/pages/sign_in_page.dart';
+import 'package:flutter_firebase_auth/pages/sign_up_page.dart';
 import 'package:flutter_firebase_auth/widgets/button.dart';
-import 'package:flutter_firebase_auth/widgets/input_field.dart';
-import 'package:flutter_firebase_auth/widgets/logo.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -17,16 +17,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            height: 500.0,
-            width: 266.0,
             margin: EdgeInsets.symmetric(horizontal: 24.0),
-            child: Card(
-              child: Column(
-                children: <Widget>[
-                  _buildLogo(),
-                  _buildUsernameInput()
-                ],
-              ),
+            child: Column(
+              children: <Widget>[
+                Button(btnText: 'SIGN IN', onPressed: showSignInScreen),
+                SizedBox(height: 10.0,),
+                Button(btnText: 'SIGN UP', onPressed: showSignUpScreen),
+              ],
             ),
           ),
         ],
@@ -34,40 +31,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-  Widget _buildLogo() {
-    return Container(
-      child: Logo(),
-    );
+  void showSignInScreen() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage()));
   }
 
-  Widget _buildUsernameInput() {
-    return Container(
-      child: InputField(
-        hintText: 'Username',
-      ),
-    );
+  void showSignUpScreen() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
   }
 
-  Widget _buildPasswordInput() {
-    return Container(
-      child: InputField(
-        hintText: 'Password',
-        isPassword: true,
-      ),
-    );
-  }
-
-  Widget _buildSignInButton() {
-    return Container(
-      margin: EdgeInsets.only(top: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Button(
-            btnText: 'SIGN IN',
-          ),
-        ],
-      ),
-    );
-  }
 }

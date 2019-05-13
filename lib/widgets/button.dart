@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   final String btnText;
+  final VoidCallback onPressed;
 
-  Button({this.btnText});
+  Button({this.btnText, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: FlatButton(
-          onPressed: () => {},
+          onPressed: () {
+            _triggerOnPressed();
+          },
           color: Colors.redAccent,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
@@ -25,5 +28,9 @@ class Button extends StatelessWidget {
             ),
           )),
     );
+  }
+
+  void _triggerOnPressed() {
+    return onPressed();
   }
 }

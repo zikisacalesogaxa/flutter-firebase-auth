@@ -3,13 +3,13 @@ import 'package:flutter_firebase_auth/components/colors.dart';
 
 class InputField extends StatelessWidget {
 
-  final String hintText;
+  final String labelText;
   final bool isEmail;
   final bool isPassword;
   final ValueChanged<String> onChanged;
 
   InputField({
-    this.hintText,
+    this.labelText,
     this.isEmail = false,
     this.isPassword = false,
     this.onChanged});
@@ -29,8 +29,7 @@ class InputField extends StatelessWidget {
           fontWeight: FontWeight.w400
         ),
         decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hintText
+          labelText: labelText
         ),
         obscureText: isPassword ? true : false,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
