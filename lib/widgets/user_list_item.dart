@@ -21,7 +21,9 @@ class UserListItem extends StatelessWidget {
         child: ListTile(
           title: Text(Record.fromSnapshot(data).name),
           trailing: Text(Record.fromSnapshot(data).votes.toString()),
-          onTap: () => print(Record.fromSnapshot(data)),
+          onTap: () => Record.fromSnapshot(data)
+              .reference
+              .updateData({'votes': FieldValue.increment(1)}),
         ),
       ),
     );
