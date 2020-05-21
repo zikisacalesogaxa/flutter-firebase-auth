@@ -13,18 +13,28 @@ class UserListItem extends StatelessWidget {
     return Padding(
       key: ValueKey(Record.fromSnapshot(data).name),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
+      child: Dismissible(
+        background: Container(
+          color: Colors.red,
         ),
-        child: ListTile(
-          title: Text(Record.fromSnapshot(data).name),
-          trailing: Text(Record.fromSnapshot(data).votes.toString()),
-          onTap: () => Record.fromSnapshot(data)
-              .reference
-              .updateData({'votes': FieldValue.increment(1)}),
+        direction: DismissDirection.startToEnd,
+        key: ObjectKey(1),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: ListTile(
+            title: Text(Record.fromSnapshot(data).name),
+            trailing: Text(Record.fromSnapshot(data).votes.toString()),
+            onTap: () => Record.fromSnapshot(data)
+                .reference
+                .updateData({'votes': FieldValue.increment(1)}),
+          ),
         ),
+        onDismissed: (DismissDirection direction) {
+          Record.fromSnapshot(data).reference.delete();
+        },
       ),
     );
   }
