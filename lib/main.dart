@@ -40,8 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
           stream: Firestore.instance.collection('users').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return LinearProgressIndicator();
-              return _buildList(context, snapshot.data.documents);
-            },
+            return _buildList(context, snapshot.data.documents);
+          },
         ),
         _buildForm()
       ],
@@ -52,50 +52,53 @@ class _MyHomePageState extends State<MyHomePage> {
   /// @param {array} - array of objects with name and vote count properties
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
     return Expanded(
-        child: ListView(
-          padding: const EdgeInsets.only(top: 20.0),
-          children: snapshot.map((data) => UserListItem(context, data)).toList(),
-        )
+      child: ListView(
+        padding: const EdgeInsets.only(top: 20.0),
+        children: snapshot.map((data) => UserListItem(context, data)).toList(),
+      ),
     );
   }
 
-   /// Build form to add new names
+  /// Build form to add new names
   Widget _buildForm() {
     final _formKey = GlobalKey<FormState>();
 
     return Form(
       key: _formKey,
-      child: Column(
-        children: <Widget>[
-          TextFormField(
-            controller: myTextController,
-            decoration: const InputDecoration(
-              hintText: 'Enter name here'
-            ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: RaisedButton(
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  Firestore.instance.collection('users').add({
-                    'name': '${myTextController.text}',
-                    'votes': 0
-                  });
-                  myTextController.clear();
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: <Widget>[
+            TextFormField(
+              controller: myTextController,
+              decoration: const InputDecoration(hintText: 'Enter name here'),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
                 }
+                return null;
               },
-              child: Text('Add name'),
             ),
-          )
-        ],
-      )
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Container(
+                width: 200.0,
+                height: 50.0,
+                child: RaisedButton(
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      Firestore.instance.collection('users').add(
+                          {'name': '${myTextController.text}', 'votes': 0});
+                      myTextController.clear();
+                    }
+                  },
+                  child: Text('Add name'),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
